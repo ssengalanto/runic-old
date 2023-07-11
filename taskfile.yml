@@ -1,0 +1,27 @@
+version: "3"
+
+dotenv: [ '.env' ]
+
+includes:
+  go:
+    taskfile: ./taskfiles/golang.yml
+    vars:
+      PACKAGES:
+        sh: go list ./...
+
+tasks:
+  default:
+    desc: List all the available tasks.
+    cmds:
+      - task --list
+    silent: true
+
+  init:
+    desc: Install required dependencies (macOS).
+    cmds:
+      - brew install golangci-lint
+
+  audit:
+    desc: Audits Go codes. (Shorthand for `task go:audit`)
+    cmds:
+      - task: go:audit
