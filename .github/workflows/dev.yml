@@ -15,7 +15,8 @@ jobs:
     environment: development
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Check-out Code
+        uses: actions/checkout@v3
 
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -33,7 +34,7 @@ jobs:
       - name: Test
         run: go test -v -coverprofile=profile.cov ./...
 
-      - name: Send test coverage
+      - name: Send Test Coverage
         uses: shogo82148/actions-goveralls@v1
         with:
           path-to-profile: profile.cov
