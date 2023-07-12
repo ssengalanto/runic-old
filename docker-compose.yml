@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  account:
+    container_name: account-service
+    image: ${APP_NAME}-account
+    restart: always
+    ports:
+      - ${ACCOUNT_SERVICE_PORT}:${ACCOUNT_SERVICE_PORT}
+    deploy:
+      mode: replicated
+      replicas: 1
+    volumes:
+      - ./services/account:/app/services/account
+    environment:
+      APP_NAME: ${APP_NAME}
+      APP_ENV: ${APP_ENV}
+      ACCOUNT_SERVICE_PORT: ${ACCOUNT_SERVICE_PORT}
