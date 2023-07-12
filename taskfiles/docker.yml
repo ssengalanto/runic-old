@@ -1,0 +1,26 @@
+version: "3"
+
+tasks:
+  compose:up:
+    desc: Runs the application using docker compose configuration file.
+    cmds:
+      - docker compose up
+
+  compose:down:
+    desc: Stops and removes the containers provisioned by docker compose configuration file.
+    cmds:
+      - docker compose down
+
+  build:
+    desc: Build a docker image.
+    summary: |
+      Build a docker image.
+
+      Arguments:
+      BIN = service name
+      PORT = service port
+
+      Example:
+      `task docker:build BIN=<service_name> PORT=<service_port>`
+    cmds:
+      - docker build -f ./services/{{.BIN}}/Dockerfile --build-arg BIN={{.BIN}} --build-arg PORT={{.PORT}} -t {{.APP_NAME}}-{{.BIN}} .
