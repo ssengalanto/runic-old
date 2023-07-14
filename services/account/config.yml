@@ -1,0 +1,6 @@
+app:
+  name: 'runic'
+  env: 'dev'
+
+http:
+  port: 8082

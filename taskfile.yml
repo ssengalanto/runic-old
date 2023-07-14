@@ -27,7 +27,7 @@ tasks:
   build:images:
     desc: Build images for all services.
     cmds:
-      - task docker:build BIN=account PORT={{.ACCOUNT_SERVICE_PORT}}
+      - task docker:build BIN=account PORT={{.ACCOUNT_SERVICE_HTTP_PORT}}
 
   run:
     desc: Run the application in docker container.
