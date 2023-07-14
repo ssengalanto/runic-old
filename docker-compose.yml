@@ -6,7 +6,7 @@ services:
     image: ${APP_NAME}-account
     restart: always
     ports:
-      - ${ACCOUNT_SERVICE_PORT}:${ACCOUNT_SERVICE_PORT}
+      - ${ACCOUNT_SERVICE_HTTP_PORT}:${ACCOUNT_SERVICE_HTTP_PORT}
     deploy:
       mode: replicated
       replicas: 1
@@ -15,4 +15,4 @@ services:
     environment:
       APP_NAME: ${APP_NAME}
       APP_ENV: ${APP_ENV}
-      ACCOUNT_SERVICE_PORT: ${ACCOUNT_SERVICE_PORT}
+      ACCOUNT_SERVICE_HTTP_PORT: ${ACCOUNT_SERVICE_HTTP_PORT}
