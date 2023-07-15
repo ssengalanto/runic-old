@@ -3,17 +3,19 @@ package main
 import (
 	"log"
 	"net/http"
+
+	"github.com/ssengalanto/runic/pkg/http/mux"
 )
 
 func main() {
-	mux := http.NewServeMux()
+	r := mux.New()
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		_, err := w.Write([]byte("Welcome to Runic Account Service!"))
 		if err != nil {
 			log.Fatal(err)
 		}
 	})
 
-	log.Fatal(http.ListenAndServe(":8082", mux)) //nolint:gosec //todo
+	log.Fatal(http.ListenAndServe(":8082", r)) //nolint:gosec //todo
 }
