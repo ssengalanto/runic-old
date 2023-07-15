@@ -9,7 +9,7 @@ const (
 	ReadTimeout          = 10 * time.Second
 	WriteTimeout         = 30 * time.Second
 	RateLimit            = 100
-	Timeout              = time.Minute
+	Timeout              = 10 * time.Second
 	ShutdownGracePeriod  = 15 * time.Second
 	CorsMaxAge           = 300
 	GzipCompressionLevel = 5
