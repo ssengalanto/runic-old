@@ -1,8 +1,24 @@
 version: '3.9'
 
 services:
+  postgres:
+    container_name: ${APP_NAME}-postgres
+    image: postgres:15.3-alpine3.18
+    ports:
+      - ${PGSQL_PORT}:${PGSQL_PORT}
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: ${PGSQL_USERNAME}
+      POSTGRES_PASSWORD: ${PGSQL_PASSWORD}
+      POSTGRES_DB: ${PGSQL_DB_NAME}
+    volumes:
+      - ./volumes/postgres/:/var/lib/postgresql/data/
+
   account:
-    container_name: account-service
+    container_name: ${APP_NAME}-account-service
     image: ${APP_NAME}-account
     restart: always
     ports:
