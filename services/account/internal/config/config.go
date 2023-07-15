@@ -19,6 +19,7 @@ type (
 	Config struct {
 		App
 		HTTP
+		PGSQL
 	}
 	// App represents the application-specific configuration.
 	App struct {
@@ -28,6 +29,15 @@ type (
 	// HTTP represents the HTTP server configuration.
 	HTTP struct {
 		Port int `env-required:"true" yaml:"port" env:"ACCOUNT_SERVICE_HTTP_PORT"`
+	}
+	// PGSQL represents the PGSQL database configuration.
+	PGSQL struct {
+		Username    string `env-required:"true" yaml:"username" env:"PGSQL_USERNAME"`
+		Password    string `env-required:"true" yaml:"password" env:"PGSQL_PASSWORD"`
+		Host        string `env-required:"true" yaml:"host" env:"PGSQL_HOST"`
+		Port        int    `env-required:"true" yaml:"port" env:"PGSQL_PORT"`
+		DBName      string `env-required:"true" yaml:"db_name" env:"PGSQL_DB_NAME"`
+		QueryParams string `env-required:"true" yaml:"query_params" env:"PGSQL_QUERY_PARAMS"`
 	}
 )
 
@@ -61,13 +71,13 @@ func New() (*Config, error) {
 
 	err = cleanenv.ReadConfig(fp, cfg)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read config file: %w", err)
+		return nil, fmt.Errorf("%w: %s", ErrReadConfigFileFailed, err)
 	}
 
 	// Load additional configuration values from environment variables.
 	err = cleanenv.ReadEnv(cfg)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read environment variables: %w", err)
+		return nil, fmt.Errorf("%w: %s", ErrReadEnvFailed, err)
 	}
 
 	return cfg, nil

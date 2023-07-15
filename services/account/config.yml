@@ -4,3 +4,11 @@ app:
 
 http:
   port: 8082
+
+pgsql:
+  username: 'postgres'
+  password: 'postgres'
+  host: 'localhost'
+  port: 5432
+  db_name: 'runic'
+  query_params: 'sslmode=disable'
