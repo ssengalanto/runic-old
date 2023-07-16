@@ -9,11 +9,6 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
-const (
-	// The filePath constant defines the path to the YAML configuration file.
-	filePath = "/services/account/config.yml"
-)
-
 type (
 	// Config represents the application configuration structure.
 	Config struct {

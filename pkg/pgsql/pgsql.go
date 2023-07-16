@@ -1,5 +1,3 @@
-// Package pgsql is a concurrency-safe connection pool for postgres database.
-// Its using sqlx internally with pgx sql driver.
 package pgsql
 
 import (
@@ -9,11 +7,6 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	"github.com/ssengalanto/runic/pkg/constants"
-)
-
-const (
-	// The driver constant represents the SQL driver used for connecting to PostgreSQL databases.
-	driver = "pgx"
 )
 
 // NewConnection creates a new PostgreSQL database connection and returns a pointer to the database instance.
