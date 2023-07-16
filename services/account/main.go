@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/ssengalanto/runic/pkg/http/mux"
+	"github.com/ssengalanto/runic/pkg/log"
 	"github.com/ssengalanto/runic/pkg/pgsql"
 	"github.com/ssengalanto/runic/services/account/internal/config"
 
@@ -16,7 +16,12 @@ import (
 func main() {
 	cfg, err := config.New()
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
+	}
+
+	slog, err := log.New(cfg.App.Env)
+	if err != nil {
+		panic(err)
 	}
 
 	pg := cfg.PGSQL
@@ -29,12 +34,12 @@ func main() {
 		pg.QueryParams,
 	)
 	if err != nil {
-		log.Fatal(err)
+		slog.Fatal(err.Error(), log.Field("hello", "hi"))
 	}
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal(err)
+		slog.Fatal(err.Error())
 	}
 
 	r := mux.New()
@@ -43,5 +48,8 @@ func main() {
 		w.Write([]byte("Welcome to Runic Account Service!")) //nolint:errcheck //unnecessary
 	})
 
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", cfg.HTTP.Port), r)) //nolint:gosec //todo
+	err = http.ListenAndServe(fmt.Sprintf(":%d", cfg.HTTP.Port), r) //nolint:gosec //todo
+	if err != nil {
+		slog.Fatal(err.Error())
+	}
 }
