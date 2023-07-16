@@ -1,4 +1,3 @@
-// Package mux provides an HTTP route multiplexer with sensible middlewares.
 package mux
 
 import (
@@ -13,7 +12,7 @@ import (
 	"github.com/ssengalanto/runic/pkg/http/middlewares"
 )
 
-// New creates a new chi HTTP route multiplexer and adds several sensible middleware to it.
+// New creates a new chi HTTP route multiplexer with predefined configurations.
 func New() *chi.Mux {
 	mux := chi.NewRouter()
 
