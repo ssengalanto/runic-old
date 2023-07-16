@@ -188,3 +188,10 @@ linters:
     #- scopelint # [deprecated, replaced by exportloopref] checks for unpinned variables in go programs
     #- structcheck # [deprecated, replaced by unused] finds unused struct fields
     #- varcheck # [deprecated, replaced by unused] finds unused global variables and constants
+
+issues:
+  exclude-rules:
+    # Exclude some linters from running on doc.go files.
+    - path: doc\.go
+      linters:
+        - lll
