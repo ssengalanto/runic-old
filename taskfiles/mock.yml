@@ -1,0 +1,9 @@
+version: "3"
+
+tasks:
+  logger:
+    desc: Generate a mock using Logger interface.
+    cmds:
+      - echo 'Generating mock logger...'
+      - mockgen -destination pkg/mock/logger.go -package mock github.com/ssengalanto/runic/pkg/interfaces Logger
+    silent: true
