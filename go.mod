@@ -3,6 +3,7 @@ module github.com/ssengalanto/runic
 go 1.20
 
 require (
+	github.com/brianvoe/gofakeit/v6 v6.23.0
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/httprate v0.7.4
