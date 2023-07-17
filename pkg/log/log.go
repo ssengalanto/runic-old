@@ -6,6 +6,8 @@ import (
 
 	"github.com/ssengalanto/runic/pkg/constants"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zaptest/observer"
 )
 
 // Log is a log implementation that uses zap.Logger internally.
@@ -110,4 +112,13 @@ func buildZapLogger(env string) (*zap.Logger, error) {
 		env,
 		[]string{constants.DevEnv, constants.StgEnv, constants.ProdEnv},
 	)
+}
+
+// NewTestInstance creates a new Logger instance for testing.
+// Use only for testing purposes.
+func NewTestInstance(level zapcore.Level) (Log, *observer.ObservedLogs) {
+	observedZapCore, observedLogs := observer.New(level)
+	observedLogger := zap.New(observedZapCore)
+
+	return Log{zap: observedLogger}, observedLogs
 }
