@@ -1,27 +1,27 @@
-package exception_test
+package exceptions_test
 
 import (
 	"fmt"
 	"testing"
 
-	"github.com/ssengalanto/runic/pkg/exception"
+	"github.com/ssengalanto/runic/pkg/exceptions"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestError_Error(t *testing.T) {
 	tests := []struct {
 		name     string
-		err      *exception.Error
+		err      *exceptions.Error
 		expected string
 	}{
 		{
 			name:     "NoCause",
-			err:      exception.New("custom error message"),
+			err:      exceptions.New("custom error message"),
 			expected: "custom error message",
 		},
 		{
 			name:     "WithCause",
-			err:      exception.Wrap(fmt.Errorf("underlying error"), "custom error message"),
+			err:      exceptions.Wrap(fmt.Errorf("underlying error"), "custom error message"),
 			expected: "custom error message: underlying error",
 		},
 	}
@@ -36,17 +36,17 @@ func TestError_Error(t *testing.T) {
 func TestError_Unwrap(t *testing.T) {
 	tests := []struct {
 		name     string
-		err      *exception.Error
+		err      *exceptions.Error
 		expected error
 	}{
 		{
 			name:     "NoCause",
-			err:      exception.New("custom error message"),
+			err:      exceptions.New("custom error message"),
 			expected: nil,
 		},
 		{
 			name:     "WithCause",
-			err:      exception.Wrap(fmt.Errorf("underlying error"), "custom error message"),
+			err:      exceptions.Wrap(fmt.Errorf("underlying error"), "custom error message"),
 			expected: fmt.Errorf("underlying error"),
 		},
 	}
