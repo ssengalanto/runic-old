@@ -12,6 +12,10 @@ includes:
     taskfile: ./taskfiles/docker.yml
   mock:
     taskfile: ./taskfiles/mock.yml
+  migrate:
+    taskfile: ./taskfiles/migrate.yml
+    vars:
+      PGSQL_DSN: postgres://{{.PGSQL_USERNAME}}:{{.PGSQL_PASSWORD}}@localhost:{{.PGSQL_PORT}}/{{.PGSQL_DB_NAME}}?{{.PGSQL_QUERY_PARAMS}}
 
 tasks:
   default:
@@ -24,6 +28,7 @@ tasks:
     desc: Install required dependencies (macOS).
     cmds:
       - brew install golangci-lint
+      - brew install golang-migrate
       - go install github.com/cosmtrek/air@latest
       - go install go.uber.org/mock/mockgen@latest
       - go install golang.org/x/tools/cmd/goimports@latest
