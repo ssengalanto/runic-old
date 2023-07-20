@@ -23,9 +23,12 @@ tasks:
   init:
     desc: Install required dependencies (macOS).
     cmds:
-      - brew install golangci-lint@1.53.3
+      - brew install golangci-lint
       - go install github.com/cosmtrek/air@latest
       - go install go.uber.org/mock/mockgen@latest
+      - go install golang.org/x/tools/cmd/goimports@latest
+      - brew install pre-commit
+      - pre-commit install
 
   build:images:
     desc: Build images for all services.
