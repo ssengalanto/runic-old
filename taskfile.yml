@@ -30,6 +30,7 @@ tasks:
   build:images:
     desc: Build images for all services.
     cmds:
+      - echo 'Building account-service image...'
       - task docker:build BIN=account PORT={{.ACCOUNT_SERVICE_HTTP_PORT}}
 
   run:
