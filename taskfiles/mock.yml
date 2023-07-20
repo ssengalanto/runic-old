@@ -7,3 +7,10 @@ tasks:
       - echo 'Generating mock logger...'
       - mockgen -destination pkg/mock/logger.go -package mock github.com/ssengalanto/runic/pkg/interfaces Logger
     silent: true
+
+  mediator:
+    desc: Generate a mock using Mediator interface.
+    cmds:
+      - echo 'Generating mock mediator...'
+      - mockgen -destination pkg/mock/mediator.go -package mock github.com/ssengalanto/runic/pkg/interfaces Mediator
+    silent: true
