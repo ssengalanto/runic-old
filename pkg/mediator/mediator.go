@@ -11,7 +11,7 @@ type RequestHandler interface {
 	// Name returns the unique name of the request handler.
 	Name() string
 	// Handle processes the incoming request and returns the response or an error.
-	Handle(ctx context.Context, request interface{}) (interface{}, error)
+	Handle(ctx context.Context, request any) (any, error)
 }
 
 // NotificationHandler defines the interface for handling notification messages.
@@ -19,17 +19,17 @@ type NotificationHandler interface {
 	// Name returns the unique name of the notification handler.
 	Name() string
 	// Handle processes the incoming notification.
-	Handle(ctx context.Context, notification interface{}) error
+	Handle(ctx context.Context, notification any) error
 }
 
 // PipelineBehaviour defines the interface for extending the request handling pipeline.
 type PipelineBehaviour interface {
 	// Handle processes the request with additional behavior and forwards it to the next handler.
-	Handle(ctx context.Context, request interface{}, next RequestHandlerFunc) (interface{}, error)
+	Handle(ctx context.Context, request any, next RequestHandlerFunc) (any, error)
 }
 
 // RequestHandlerFunc represents the function signature of a request handler.
-type RequestHandlerFunc func() (interface{}, error)
+type RequestHandlerFunc func() (any, error)
 
 // Mediator is a mediator that registers and dispatches requests and notifications.
 type Mediator struct {
@@ -84,7 +84,7 @@ func (m *Mediator) RegisterPipelineBehaviour(behaviour PipelineBehaviour) error 
 }
 
 // Send sends the request to its corresponding RequestHandler, processing it through any registered pipeline behaviors.
-func (m *Mediator) Send(ctx context.Context, request interface{}) (interface{}, error) {
+func (m *Mediator) Send(ctx context.Context, request any) (any, error) {
 	rt := reflect.TypeOf(request).String()
 
 	handler, ok := m.requestHandlerRegistry[rt]
@@ -93,7 +93,7 @@ func (m *Mediator) Send(ctx context.Context, request interface{}) (interface{}, 
 	}
 
 	if len(m.pipelineBehaviourRegistry) > 0 {
-		var lastHandler RequestHandlerFunc = func() (interface{}, error) {
+		var lastHandler RequestHandlerFunc = func() (any, error) {
 			return handler.Handle(ctx, request)
 		}
 
@@ -102,7 +102,7 @@ func (m *Mediator) Send(ctx context.Context, request interface{}) (interface{}, 
 			pipeValue := pipe
 			nextValue := aggregateResult
 
-			aggregateResult = func() (interface{}, error) {
+			aggregateResult = func() (any, error) {
 				return pipeValue.Handle(ctx, request, nextValue)
 			}
 		}
@@ -124,7 +124,7 @@ func (m *Mediator) Send(ctx context.Context, request interface{}) (interface{}, 
 }
 
 // Publish publishes the notification event to its corresponding NotificationHandler.
-func (m *Mediator) Publish(ctx context.Context, notification interface{}) error {
+func (m *Mediator) Publish(ctx context.Context, notification any) error {
 	rt := reflect.TypeOf(notification).String()
 
 	handler, ok := m.notificationHandlerRegistry[rt]

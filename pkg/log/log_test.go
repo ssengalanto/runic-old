@@ -66,8 +66,6 @@ func TestLogger(t *testing.T) {
 		{zapcore.ErrorLevel, func(l log.Log, msg string, fields ...log.KeyValue) { l.Error(msg, fields...) }},
 		{zapcore.DebugLevel, func(l log.Log, msg string, fields ...log.KeyValue) { l.Debug(msg, fields...) }},
 		{zapcore.WarnLevel, func(l log.Log, msg string, fields ...log.KeyValue) { l.Warn(msg, fields...) }},
-		// {zapcore.FatalLevel, func(l log.Log, msg string, fields ...log.KeyValue) { l.Fatal(msg, fields...) }},
-		// {zapcore.PanicLevel, func(l log.Log, msg string, fields ...log.KeyValue) { l.Panic(msg, fields...) }},
 	}
 
 	for _, tc := range tests {
