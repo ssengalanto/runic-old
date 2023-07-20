@@ -1,12 +1,7 @@
-// Package config provides tools for managing application configuration.
 package config
 
 import (
-	"fmt"
-	"log"
-	"os"
-
-	"github.com/ilyakaznacheev/cleanenv"
+	"github.com/ssengalanto/runic/pkg/config"
 )
 
 type (
@@ -36,44 +31,16 @@ type (
 	}
 )
 
-// New creates a new Config instance with default values loaded from a YAML file and environment variables.
-//
-// New initializes a new Config struct and reads configuration values from a YAML file named "config.yml" in the
-// current working directory using the cleanenv package. It then reads additional configuration values from
-// environment variables using the same package.
-//
-// Example usage:
-// cfg, err := New()
-// if err != nil {
-// // handle error
-// }
-// // use cfg values
-//
-// New returns a pointer to a new Config instance and an error if any occurred during initialization.
-// The returned Config struct contains the default configuration values from the YAML file and any overrides
-// from environment variables.
+// New creates a new *Config instance with default values loaded from a YAML file and environment variables.
 func New() (*Config, error) {
-	cfg := &Config{}
+	c := &Config{}
 
-	// Get the current working directory.
-	dir, err := os.Getwd()
+	res, err := config.New(filePath, c)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	// Load configuration values from the YAML file.
-	fp := fmt.Sprintf("%s%s", dir, filePath)
-
-	err = cleanenv.ReadConfig(fp, cfg)
-	if err != nil {
-		return nil, fmt.Errorf("%w: %s", ErrReadConfigFileFailed, err)
-	}
-
-	// Load additional configuration values from environment variables.
-	err = cleanenv.ReadEnv(cfg)
-	if err != nil {
-		return nil, fmt.Errorf("%w: %s", ErrReadEnvFailed, err)
-	}
+	cfg := res.(*Config) //nolint:errcheck //intentional panic
 
 	return cfg, nil
 }
