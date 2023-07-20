@@ -15,12 +15,12 @@ func TestError_Error(t *testing.T) {
 		expected string
 	}{
 		{
-			name:     "NoCause",
+			name:     "no cause",
 			err:      exceptions.New("custom error message"),
 			expected: "custom error message",
 		},
 		{
-			name:     "WithCause",
+			name:     "with cause",
 			err:      exceptions.Wrap(fmt.Errorf("underlying error"), "custom error message"),
 			expected: "custom error message: underlying error",
 		},
@@ -40,12 +40,12 @@ func TestError_Unwrap(t *testing.T) {
 		expected error
 	}{
 		{
-			name:     "NoCause",
+			name:     "no cause",
 			err:      exceptions.New("custom error message"),
 			expected: nil,
 		},
 		{
-			name:     "WithCause",
+			name:     "with cause",
 			err:      exceptions.Wrap(fmt.Errorf("underlying error"), "custom error message"),
 			expected: fmt.Errorf("underlying error"),
 		},
