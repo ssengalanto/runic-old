@@ -2,6 +2,7 @@ package json_test
 
 import (
 	"bytes"
+	"context"
 	stdjson "encoding/json"
 	"errors"
 	"net/http"
@@ -15,7 +16,11 @@ import (
 
 // Helper function to create a new HTTP request with the given payload.
 func newRequest(payload string) (*http.Request, error) {
-	return http.NewRequest("POST", "/example", bytes.NewBufferString(payload))
+	return http.NewRequestWithContext(
+		context.Background(),
+		http.MethodPost,
+		"/example",
+		bytes.NewBufferString(payload))
 }
 
 // Test payload struct.

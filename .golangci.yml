@@ -195,3 +195,6 @@ issues:
     - path: doc\.go
       linters:
         - lll
+    - path: _test\.go
+      linters:
+        - funlen

@@ -12,7 +12,7 @@ type HTTPError struct {
 	Error Err `json:"error"`
 }
 
-// Err represents the details of an error, including code, message, and reason.
+// Err represents the details of an error, including code, message, and cause.
 type Err struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`

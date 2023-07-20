@@ -16,39 +16,81 @@ func TestNewHTTPError(t *testing.T) {
 		expected *exceptions.HTTPError
 	}{
 		{
-			name:     "invalid error",
-			err:      apperr.ErrInvalid,
-			expected: &exceptions.HTTPError{Error: exceptions.Err{Code: http.StatusBadRequest, Message: http.StatusText(http.StatusBadRequest), Cause: "invalid"}},
+			name: "invalid error",
+			err:  apperr.ErrInvalid,
+			expected: &exceptions.HTTPError{
+				Error: exceptions.Err{
+					Code:    http.StatusBadRequest,
+					Message: http.StatusText(http.StatusBadRequest),
+					Cause:   "invalid",
+				},
+			},
 		},
 		{
-			name:     "unauthorized error",
-			err:      apperr.ErrUnauthorized,
-			expected: &exceptions.HTTPError{Error: exceptions.Err{Code: http.StatusUnauthorized, Message: http.StatusText(http.StatusUnauthorized), Cause: "unauthorized"}},
+			name: "unauthorized error",
+			err:  apperr.ErrUnauthorized,
+			expected: &exceptions.HTTPError{
+				Error: exceptions.Err{
+					Code:    http.StatusUnauthorized,
+					Message: http.StatusText(http.StatusUnauthorized),
+					Cause:   "unauthorized",
+				},
+			},
 		},
 		{
-			name:     "forbidden error",
-			err:      apperr.ErrForbidden,
-			expected: &exceptions.HTTPError{Error: exceptions.Err{Code: http.StatusForbidden, Message: http.StatusText(http.StatusForbidden), Cause: "forbidden"}},
+			name: "forbidden error",
+			err:  apperr.ErrForbidden,
+			expected: &exceptions.HTTPError{
+				Error: exceptions.Err{
+					Code:    http.StatusForbidden,
+					Message: http.StatusText(http.StatusForbidden),
+					Cause:   "forbidden",
+				},
+			},
 		},
 		{
-			name:     "not found error",
-			err:      apperr.ErrNotFound,
-			expected: &exceptions.HTTPError{Error: exceptions.Err{Code: http.StatusNotFound, Message: http.StatusText(http.StatusNotFound), Cause: "not found"}},
+			name: "not found error",
+			err:  apperr.ErrNotFound,
+			expected: &exceptions.HTTPError{
+				Error: exceptions.Err{
+					Code:    http.StatusNotFound,
+					Message: http.StatusText(http.StatusNotFound),
+					Cause:   "not found",
+				},
+			},
 		},
 		{
-			name:     "timeout error",
-			err:      apperr.ErrTimeout,
-			expected: &exceptions.HTTPError{Error: exceptions.Err{Code: http.StatusRequestTimeout, Message: http.StatusText(http.StatusRequestTimeout), Cause: "timeout"}},
+			name: "timeout error",
+			err:  apperr.ErrTimeout,
+			expected: &exceptions.HTTPError{
+				Error: exceptions.Err{
+					Code:    http.StatusRequestTimeout,
+					Message: http.StatusText(http.StatusRequestTimeout),
+					Cause:   "timeout",
+				},
+			},
 		},
 		{
-			name:     "temporary disabled error",
-			err:      apperr.ErrTemporaryDisabled,
-			expected: &exceptions.HTTPError{Error: exceptions.Err{Code: http.StatusServiceUnavailable, Message: http.StatusText(http.StatusServiceUnavailable), Cause: "temporary disabled"}},
+			name: "temporary disabled error",
+			err:  apperr.ErrTemporaryDisabled,
+			expected: &exceptions.HTTPError{
+				Error: exceptions.Err{
+					Code:    http.StatusServiceUnavailable,
+					Message: http.StatusText(http.StatusServiceUnavailable),
+					Cause:   "temporary disabled",
+				},
+			},
 		},
 		{
-			name:     "internal server error",
-			err:      apperr.ErrInternal,
-			expected: &exceptions.HTTPError{Error: exceptions.Err{Code: http.StatusInternalServerError, Message: http.StatusText(http.StatusInternalServerError), Cause: "internal server error"}},
+			name: "internal server error",
+			err:  apperr.ErrInternal,
+			expected: &exceptions.HTTPError{
+				Error: exceptions.Err{
+					Code:    http.StatusInternalServerError,
+					Message: http.StatusText(http.StatusInternalServerError),
+					Cause:   "internal server error",
+				},
+			},
 		},
 	}
 
