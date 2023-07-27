@@ -20,6 +20,7 @@ type fieldErr struct {
 
 func init() {
 	validator = v.New()
+	registerCustomValidators()
 }
 
 // Var validates a single field using a specified tag.
