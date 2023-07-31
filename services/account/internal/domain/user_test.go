@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v6"
+	"github.com/ssengalanto/runic/pkg/fn"
 	"github.com/ssengalanto/runic/services/account/internal/domain"
 	"github.com/ssengalanto/runic/services/account/internal/mock"
 	"github.com/stretchr/testify/assert"
@@ -204,7 +205,7 @@ func TestUser_ProfileUpdate(t *testing.T) {
 				Avatar: &update.Avatar,
 			},
 			assert: func(t *testing.T, expected string, actual *string, err error) {
-				assert.Equal(t, expected, *actual)
+				assert.Equal(t, expected, fn.Deref(actual))
 				require.NoError(t, err)
 			},
 		},
@@ -215,7 +216,7 @@ func TestUser_ProfileUpdate(t *testing.T) {
 				Avatar: &emptyStr,
 			},
 			assert: func(t *testing.T, expected string, actual *string, err error) {
-				assert.Equal(t, expected, *actual)
+				assert.Equal(t, expected, fn.Deref(actual))
 				require.Error(t, err)
 			},
 		},
