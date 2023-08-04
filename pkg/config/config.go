@@ -23,7 +23,7 @@ import (
 // New returns a pointer to the new Config instance and an error if any occurred during initialization.
 // The returned Config struct contains the default configuration values from the YAML file and any overrides
 // from environment variables.
-func New(filePath string, cfg any) (any, error) {
+func New[T any](filePath string, cfg *T) (*T, error) {
 	// Get the current working directory.
 	dir, err := os.Getwd()
 	if err != nil {
