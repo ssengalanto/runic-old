@@ -35,12 +35,10 @@ type (
 func New() (*Config, error) {
 	c := &Config{}
 
-	res, err := config.New(filePath, c)
+	cfg, err := config.New(filePath, c)
 	if err != nil {
 		return nil, err
 	}
-
-	cfg := res.(*Config) //nolint:errcheck //intentional panic
 
 	return cfg, nil
 }
