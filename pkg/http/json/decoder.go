@@ -13,7 +13,7 @@ import (
 // DecodeRequest decodes the JSON payload from an HTTP request and stores it in the given destination.
 // The function also enforces a maximum request body size to prevent large payloads.
 // It returns an error if the decoding fails.
-func DecodeRequest(w http.ResponseWriter, r *http.Request, dst any) error {
+func DecodeRequest[T any](w http.ResponseWriter, r *http.Request, dst *T) error {
 	// Limit the request body size to prevent potential abuse or attacks.
 	r.Body = http.MaxBytesReader(w, r.Body, int64(constants.MaxHeaderBytes))
 
