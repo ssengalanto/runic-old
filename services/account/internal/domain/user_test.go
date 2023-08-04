@@ -15,12 +15,14 @@ func TestNewUser(t *testing.T) {
 		name     string
 		email    string
 		password string
+		role     domain.Role
 		assert   func(t *testing.T, err error)
 	}{
 		{
 			name:     "new instance creation success",
 			email:    gofakeit.Email(),
 			password: mock.ValidPassword(),
+			role:     domain.RoleUser,
 			assert: func(t *testing.T, err error) {
 				require.NoError(t, err)
 			},
@@ -29,6 +31,7 @@ func TestNewUser(t *testing.T) {
 			name:     "new instance creation failed due to invalid email",
 			email:    gofakeit.Word(),
 			password: mock.ValidPassword(),
+			role:     domain.RoleUser,
 			assert: func(t *testing.T, err error) {
 				require.Error(t, err)
 			},
@@ -37,6 +40,16 @@ func TestNewUser(t *testing.T) {
 			name:     "new instance creation failed due to invalid password",
 			email:    gofakeit.Email(),
 			password: mock.InvalidPassword(),
+			role:     domain.RoleUser,
+			assert: func(t *testing.T, err error) {
+				require.Error(t, err)
+			},
+		},
+		{
+			name:     "new instance creation failed due to invalid role",
+			email:    gofakeit.Email(),
+			password: mock.InvalidPassword(),
+			role:     domain.Role("invalid"),
 			assert: func(t *testing.T, err error) {
 				require.Error(t, err)
 			},
@@ -44,7 +57,7 @@ func TestNewUser(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			_, err := domain.NewUser(tc.email, tc.password)
+			_, err := domain.NewUser(tc.email, tc.password, tc.role)
 			tc.assert(t, err)
 		})
 	}

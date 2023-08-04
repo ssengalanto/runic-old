@@ -23,6 +23,7 @@ func User() domain.User {
 	user, err := domain.NewUser(
 		gofakeit.Email(),
 		ValidPassword(),
+		domain.RoleUser,
 	)
 
 	if err != nil {

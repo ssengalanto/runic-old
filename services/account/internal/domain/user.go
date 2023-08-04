@@ -1,10 +1,20 @@
 package domain
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/ssengalanto/runic/pkg/exceptions"
 	"github.com/ssengalanto/runic/pkg/validator"
+)
+
+type Role string
+
+const (
+	RoleAdmin     Role = "admin"
+	RoleModerator Role = "moderator"
+	RoleUser      Role = "user"
 )
 
 // User - account's user entity, serves as the aggregate root.
@@ -12,6 +22,7 @@ type User struct {
 	ID          uuid.UUID    `json:"id" validate:"required"`
 	Email       Email        `json:"email" validate:"required,email"`
 	Password    Password     `json:"password" validate:"required,min=10"`
+	Role        Role         `json:"role" validate:"required"`
 	Active      bool         `json:"active" validate:"required"`
 	LastLoginAt time.Time    `json:"lastLoginAt,omitempty"`
 	Profile     *UserProfile `json:"profile,omitempty"`
@@ -19,11 +30,12 @@ type User struct {
 
 // NewUser creates a new account entity with the provided information.
 // It performs validation on the inputs to ensure data integrity and returns an error if any validation fails.
-func NewUser(email, password string) (User, error) {
+func NewUser(email, password string, role Role) (User, error) {
 	user := User{
 		ID:       uuid.New(),
 		Email:    Email(email),
 		Password: Password(password),
+		Role:     role,
 		Active:   true,
 	}
 
@@ -103,7 +115,12 @@ func (u *User) CheckPassword(password string) bool {
 // It uses a validator to validate the User's fields based on predefined rules and tags.
 // It returns an error if any validation error occurs, otherwise nil.
 func (u *User) IsValid() error {
-	err := validator.Struct(u)
+	err := u.validateRole()
+	if err != nil {
+		return err
+	}
+
+	err = validator.Struct(u)
 	if err != nil {
 		return err
 	}
@@ -111,8 +128,22 @@ func (u *User) IsValid() error {
 	return err
 }
 
+func (u *User) validateRole() error {
+	switch u.Role {
+	case RoleAdmin, RoleModerator, RoleUser:
+		return nil
+	default:
+		return fmt.Errorf(
+			"%w: %s %v",
+			exceptions.ErrInvalid,
+			"role must be one of the following:",
+			[]Role{RoleAdmin, RoleModerator, RoleUser},
+		)
+	}
+}
+
 // UpdateProfile partially updates the user profile based on the provided UpdateProfileInput.
-// It validates the request and returns an error if the it is invalid.
+// It validates the request and returns an error if the input is invalid.
 func (u *User) UpdateProfile(in UpdateProfileInput) error {
 	err := u.Profile.Update(in)
 	if err != nil {
