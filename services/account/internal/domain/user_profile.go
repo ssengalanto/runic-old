@@ -11,8 +11,8 @@ import (
 type UserProfile struct {
 	ID          uuid.UUID `json:"id" validate:"required"`
 	UserID      uuid.UUID `json:"userId" validate:"required"`
-	FirstName   string    `json:"firstName,omitempty" validate:"required"`
-	LastName    string    `json:"lastName,omitempty" validate:"required"`
+	FirstName   string    `json:"firstName" validate:"required"`
+	LastName    string    `json:"lastName" validate:"required"`
 	DateOfBirth time.Time `json:"dateOfBirth" validate:"required"`
 	Avatar      string    `json:"avatar,omitempty" validate:"omitempty,url"`
 	Bio         string    `json:"bio,omitempty"`
