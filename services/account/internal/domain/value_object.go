@@ -1,9 +1,51 @@
 package domain
 
 import (
+	"fmt"
+
+	"github.com/ssengalanto/runic/pkg/exceptions"
 	"github.com/ssengalanto/runic/pkg/validator"
 	"golang.org/x/crypto/bcrypt"
 )
+
+// Role value object.
+type Role string
+
+const (
+	RoleAdmin     Role = "admin"
+	RoleModerator Role = "moderator"
+	RoleUser      Role = "user"
+)
+
+// IsValid checks the validity of the user role.
+func (r Role) IsValid() (bool, error) {
+	switch r {
+	case RoleAdmin, RoleModerator, RoleUser:
+		return true, nil
+	default:
+		return false, fmt.Errorf(
+			"%w: %s %v",
+			exceptions.ErrInvalid,
+			"role must be one of the following:",
+			[]Role{RoleAdmin, RoleModerator, RoleUser},
+		)
+	}
+}
+
+// Update checks the validity of the user role and updates its value.
+func (r Role) Update(s string) (Role, error) {
+	role := Role(s)
+	if ok, err := role.IsValid(); !ok {
+		return "", err
+	}
+
+	return role, nil
+}
+
+// String converts Role to type string.
+func (r Role) String() string {
+	return string(r)
+}
 
 // Email value object.
 type Email string

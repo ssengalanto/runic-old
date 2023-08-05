@@ -1,20 +1,10 @@
 package domain
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ssengalanto/runic/pkg/exceptions"
 	"github.com/ssengalanto/runic/pkg/validator"
-)
-
-type Role string
-
-const (
-	RoleAdmin     Role = "admin"
-	RoleModerator Role = "moderator"
-	RoleUser      Role = "user"
 )
 
 // User - account's user entity, serves as the aggregate root.
@@ -115,7 +105,7 @@ func (u *User) CheckPassword(password string) bool {
 // It uses a validator to validate the User's fields based on predefined rules and tags.
 // It returns an error if any validation error occurs, otherwise nil.
 func (u *User) IsValid() error {
-	err := u.validateRole()
+	_, err := u.Role.IsValid()
 	if err != nil {
 		return err
 	}
@@ -126,20 +116,6 @@ func (u *User) IsValid() error {
 	}
 
 	return err
-}
-
-func (u *User) validateRole() error {
-	switch u.Role {
-	case RoleAdmin, RoleModerator, RoleUser:
-		return nil
-	default:
-		return fmt.Errorf(
-			"%w: %s %v",
-			exceptions.ErrInvalid,
-			"role must be one of the following:",
-			[]Role{RoleAdmin, RoleModerator, RoleUser},
-		)
-	}
 }
 
 // UpdateProfile partially updates the user profile based on the provided UpdateProfileInput.

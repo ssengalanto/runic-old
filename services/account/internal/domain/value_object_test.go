@@ -11,6 +11,81 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestRole_IsValid(t *testing.T) {
+	testCases := []struct {
+		name    string
+		payload string
+		assert  func(t *testing.T, result bool, err error)
+	}{
+		{
+			name:    "valid role",
+			payload: "admin",
+			assert: func(t *testing.T, result bool, err error) {
+				assert.True(t, result)
+				require.NoError(t, err)
+			},
+		},
+		{
+			name:    "invalid role",
+			payload: "invalid-role",
+			assert: func(t *testing.T, result bool, err error) {
+				assert.False(t, result)
+				require.Error(t, err)
+			},
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			role := domain.Role(tc.payload)
+			ok, err := role.IsValid()
+			tc.assert(t, ok, err)
+		})
+	}
+}
+
+func TestRole_Update(t *testing.T) {
+	testCases := []struct {
+		name    string
+		current string
+		update  string
+		assert  func(t *testing.T, expected domain.Role, actual domain.Role, err error)
+	}{
+		{
+			name:    "change role successful",
+			current: "user",
+			update:  "admin",
+			assert: func(t *testing.T, expected domain.Role, actual domain.Role, err error) {
+				assert.Equal(t, expected, actual)
+				require.NoError(t, err)
+			},
+		},
+		{
+			name:    "change role failed",
+			current: "admin",
+			update:  "invalid-role",
+			assert: func(t *testing.T, expected domain.Role, actual domain.Role, err error) {
+				assert.NotEqual(t, expected, actual)
+				require.Error(t, err)
+			},
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			e := domain.Role(tc.current)
+			ne, err := e.Update(tc.update)
+			tc.assert(t, domain.Role(tc.update), ne, err)
+		})
+	}
+}
+
+func TestRole_String(t *testing.T) {
+	t.Run("convert role to type string", func(t *testing.T) {
+		role := domain.RoleAdmin.String()
+		kind := reflect.TypeOf(role).String()
+		require.Equal(t, "string", kind)
+	})
+}
+
 func TestEmail_IsValid(t *testing.T) {
 	testCases := []struct {
 		name    string
