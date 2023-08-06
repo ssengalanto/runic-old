@@ -10,14 +10,14 @@ import (
 // HTTPError represents an HTTP error with a custom error structure.
 type HTTPError struct {
 	Error Err `json:"error"`
-}
+} // @name HTTPError
 
 // Err represents the details of an error, including code, message, and cause.
 type Err struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 	Cause   string `json:"cause"`
-}
+} // @name Error
 
 // NewHTTPError creates a new HTTPError instance based on the given error.
 func NewHTTPError(err error) *HTTPError {

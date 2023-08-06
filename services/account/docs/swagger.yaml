@@ -1,0 +1,67 @@
+definitions:
+  AccountUserResponse:
+    properties:
+      active:
+        type: boolean
+      email:
+        type: string
+      id:
+        type: string
+      lastLoginAt:
+        type: string
+      role:
+        type: string
+    type: object
+  Error:
+    properties:
+      cause:
+        type: string
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  GetAccountDetailsResponse:
+    properties:
+      data:
+        $ref: '#/definitions/AccountUserResponse'
+    type: object
+  HTTPError:
+    properties:
+      error:
+        $ref: '#/definitions/Error'
+    type: object
+info:
+  contact: {}
+paths:
+  /api/account/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the account details for a specific account ID.
+      parameters:
+      - description: Account ID
+        example: '"0b6ecded-fa9d-4b39-a309-9ef501de15f4"'
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns the account details.
+          schema:
+            $ref: '#/definitions/GetAccountDetailsResponse'
+        "404":
+          description: The specified record does not exist.
+          schema:
+            $ref: '#/definitions/HTTPError'
+        "500":
+          description: An error occurred while processing the request.
+          schema:
+            $ref: '#/definitions/HTTPError'
+      summary: Get Account Details
+      tags:
+      - account
+swagger: "2.0"
