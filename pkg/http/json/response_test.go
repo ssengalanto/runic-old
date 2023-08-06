@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/ssengalanto/runic/pkg/exceptions"
-	httpexceptions "github.com/ssengalanto/runic/pkg/http/exceptions"
-	httpjson "github.com/ssengalanto/runic/pkg/http/json"
+	httpExceptions "github.com/ssengalanto/runic/pkg/http/exceptions"
+	httpJson "github.com/ssengalanto/runic/pkg/http/json"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,11 +22,11 @@ func TestSuccess(t *testing.T) {
 	tests := []struct {
 		name       string
 		statusCode int
-		payload    *MockPayload
+		payload    any
 		expected   MockPayload
 	}{
 		{
-			name:       "nil paylaod",
+			name:       "nil payload",
 			statusCode: http.StatusOK,
 			payload:    nil,
 			expected:   MockPayload{},
@@ -42,8 +42,16 @@ func TestSuccess(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			w := httptest.NewRecorder()
-			err := httpjson.Success(w, tc.statusCode, tc.payload)
-			assert.NoError(t, err)
+
+			// Use a defer function to recover from panic and check for errors
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("json.Success panicked: %v", r)
+				}
+			}()
+
+			// Call the function and check for errors
+			httpJson.Success(w, tc.statusCode, tc.payload)
 
 			// Check the response status code
 			assert.Equal(t, tc.statusCode, w.Code)
@@ -51,7 +59,7 @@ func TestSuccess(t *testing.T) {
 			if tc.payload != nil {
 				// Unmarshal the response payload
 				var responsePayload MockPayload
-				err = json.Unmarshal(w.Body.Bytes(), &responsePayload)
+				err := json.Unmarshal(w.Body.Bytes(), &responsePayload)
 				assert.NoError(t, err)
 
 				// Check the response payload
@@ -82,15 +90,23 @@ func TestError(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			w := httptest.NewRecorder()
-			err := httpjson.Error(w, tc.err)
-			assert.NoError(t, err)
+
+			// Use a defer function to recover from panic and check for errors
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("json.Error panicked: %v", r)
+				}
+			}()
+
+			// Call the function and check for errors
+			httpJson.Error(w, tc.err)
 
 			// Check the response status code
 			assert.Equal(t, tc.status, w.Code)
 
 			// Unmarshal the response payload
-			var httpError httpexceptions.HTTPError
-			err = json.Unmarshal(w.Body.Bytes(), &httpError)
+			var httpError httpExceptions.HTTPError
+			err := json.Unmarshal(w.Body.Bytes(), &httpError)
 			assert.NoError(t, err)
 
 			// Check the error message
