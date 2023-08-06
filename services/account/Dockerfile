@@ -1,6 +1,7 @@
 FROM golang:1.20
 
 ARG BIN
+ARG PORT
 
 ENV BIN=${BIN}
 ENV PORT=${PORT}
