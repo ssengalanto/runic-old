@@ -27,11 +27,13 @@ tasks:
   init:
     desc: Install required dependencies (macOS).
     cmds:
+      - go install github.com/google/wire/cmd/wire@latest
       - brew install golangci-lint
       - brew install golang-migrate
       - go install github.com/cosmtrek/air@latest
       - go install go.uber.org/mock/mockgen@latest
       - go install golang.org/x/tools/cmd/goimports@latest
+      - go install github.com/swaggo/swag/cmd/swag@latest
       - brew install pre-commit
       - pre-commit install
 
@@ -41,15 +43,29 @@ tasks:
       - echo 'Building account-service image...'
       - task docker:build BIN=account PORT={{.ACCOUNT_SERVICE_HTTP_PORT}}
 
-  run:
-    desc: Run the application in docker container.
-    deps:
-      - build:images
-    cmds:
-      - echo 'Running the application...'
-      - task: docker:compose:up
-
   audit:
     desc: Audits Go codes. (Shorthand for `task go:audit`)
     cmds:
       - task: go:audit
+
+  swag:
+    desc: Generate swagger documentation.
+    cmds:
+      - echo 'Generating account-service swagger documentation...'
+      - swag init -g ./services/account/main.go -o ./services/account/docs
+
+  wire:
+    desc: Wire up dependencies for all services.
+    cmds:
+      - echo 'Wiring up the account-service...'
+      - cd ./services/account/application && wire
+
+  run:
+    desc: Run the application in docker container.
+    deps:
+      - build:images
+      - swag
+      - wire
+    cmds:
+      - echo 'Running the application...'
+      - task: docker:compose:up
