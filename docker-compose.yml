@@ -29,6 +29,15 @@ services:
     volumes:
       - ./services/account:/app/services/account
     environment:
+      # app
       APP_NAME: ${APP_NAME}
       APP_ENV: ${APP_ENV}
+      # account-service
       ACCOUNT_SERVICE_HTTP_PORT: ${ACCOUNT_SERVICE_HTTP_PORT}
+      # pgsql
+      PGSQL_USERNAME: ${PGSQL_USERNAME}
+      PGSQL_PASSWORD: ${PGSQL_PASSWORD}
+      PGSQL_HOST: ${PGSQL_HOST}
+      PGSQL_PORT: ${PGSQL_PORT}
+      PGSQL_DB_NAME: ${PGSQL_DB_NAME}
+      PGSQL_QUERY_PARAMS: ${PGSQL_QUERY_PARAMS}
