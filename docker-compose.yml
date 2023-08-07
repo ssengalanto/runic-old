@@ -33,7 +33,7 @@ services:
       APP_NAME: ${APP_NAME}
       APP_ENV: ${APP_ENV}
       # account-service
-      ACCOUNT_SERVICE_HTTP_PORT: ${ACCOUNT_SERVICE_HTTP_PORT}
+      HTTP_PORT: ${ACCOUNT_SERVICE_HTTP_PORT}
       # pgsql
       PGSQL_USERNAME: ${PGSQL_USERNAME}
       PGSQL_PASSWORD: ${PGSQL_PASSWORD}

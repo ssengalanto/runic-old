@@ -2,12 +2,12 @@ package getaccountdetails
 
 import "github.com/google/uuid"
 
-// Query represents a query for retrieving account details.
+// Query represents a request data structure used for querying account details.
 type Query struct {
 	ID uuid.UUID
 }
 
-// NewQuery creates a new Query instance with the provided ID.
+// NewQuery creates a new instance of the Query.
 func NewQuery(id uuid.UUID) *Query {
 	return &Query{ID: id}
 }

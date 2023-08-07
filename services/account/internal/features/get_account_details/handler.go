@@ -7,11 +7,13 @@ import (
 	"github.com/ssengalanto/runic/pkg/interfaces"
 )
 
+// Handler represents a request handler that processes incoming queries and returns responses.
 type Handler struct {
 	slog interfaces.Logger
 	svc  ServiceContract
 }
 
+// NewHandler creates a new instance of the Handler.
 func NewHandler(
 	slog interfaces.Logger,
 	svc ServiceContract,
@@ -22,10 +24,12 @@ func NewHandler(
 	}
 }
 
+// Name returns the name of the handler, which is derived from the type of the associated Query struct.
 func (h *Handler) Name() string {
 	return fmt.Sprintf("%T", &Query{})
 }
 
+// Handle processes the incoming request and returns the corresponding response.
 func (h *Handler) Handle(
 	ctx context.Context,
 	request any,

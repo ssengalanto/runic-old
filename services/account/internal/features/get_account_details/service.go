@@ -15,11 +15,13 @@ import (
 	"github.com/ssengalanto/runic/services/account/internal/domain"
 )
 
+// Service represents a service that interacts with the database and provides methods for retrieving account user information.
 type Service struct {
 	slog interfaces.Logger
 	db   *sqlx.DB
 }
 
+// NewService creates a new instance of the Service.
 func NewService(slog interfaces.Logger, db *sqlx.DB) *Service {
 	return &Service{
 		slog: slog,
@@ -27,6 +29,7 @@ func NewService(slog interfaces.Logger, db *sqlx.DB) *Service {
 	}
 }
 
+// GetAccountUser retrieves the account user details by the specified ID.
 func (s *Service) GetAccountUser(ctx context.Context, id uuid.UUID) (domain.User, error) {
 	model := data.User{}
 	empty := domain.User{}

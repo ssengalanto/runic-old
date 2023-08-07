@@ -13,11 +13,13 @@ import (
 	"github.com/ssengalanto/runic/pkg/log"
 )
 
+// Controller represents a controller that handles business logic and serves as an entry point for handling incoming requests.
 type Controller struct {
 	slog     interfaces.Logger
 	mediator interfaces.Mediator
 }
 
+// NewController creates a new instance of the Controller.
 func NewController(slog interfaces.Logger, mediator interfaces.Mediator) *Controller {
 	return &Controller{slog: slog, mediator: mediator}
 }

@@ -6,10 +6,12 @@ import (
 	"github.com/google/uuid"
 )
 
+// Response is a struct representing the response format for the GetAccountDetails API.
 type Response struct {
 	Data AccountUserResponse `json:"data"`
-} // @name GetAccountDetailsResponse
+}
 
+// AccountUserResponse is a struct representing the user details in the response for GetAccountDetails API.
 type AccountUserResponse struct {
 	ID          uuid.UUID `json:"id"`
 	Email       string    `json:"email"`

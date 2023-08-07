@@ -18,7 +18,7 @@ type (
 	}
 	// HTTP represents the HTTP server configuration.
 	HTTP struct {
-		Port int `env-required:"true" yaml:"port" env:"ACCOUNT_SERVICE_HTTP_PORT"`
+		Port int `env-required:"true" yaml:"port" env:"HTTP_PORT"`
 	}
 	// PGSQL represents the PGSQL database configuration.
 	PGSQL struct {
