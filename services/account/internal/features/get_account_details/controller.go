@@ -13,7 +13,8 @@ import (
 	"github.com/ssengalanto/runic/pkg/log"
 )
 
-// Controller represents a controller that handles business logic and serves as an entry point for handling incoming requests.
+// Controller represents a controller that handles business logic
+// and serves as an entry point for handling incoming requests.
 type Controller struct {
 	slog     interfaces.Logger
 	mediator interfaces.Mediator

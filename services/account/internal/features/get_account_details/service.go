@@ -15,7 +15,8 @@ import (
 	"github.com/ssengalanto/runic/services/account/internal/domain"
 )
 
-// Service represents a service that interacts with the database and provides methods for retrieving account user information.
+// Service represents a service that interacts with the database
+// and provides methods for retrieving account user information.
 type Service struct {
 	slog interfaces.Logger
 	db   *sqlx.DB

@@ -12,13 +12,13 @@ import (
 )
 
 var (
-	// mediator-registry set
+	// mediator-registry set.
 	mediatorHandlerSet = wire.NewSet(
 		registerMediatorHandlers,
 		getAccountDetailsSet,
 	)
 
-	// mediator handler sets
+	// mediator handler sets.
 	getAccountDetailsSet = wire.NewSet(
 		getaccountdetails.NewService,
 		wire.Bind(new(getaccountdetails.ServiceContract), new(*getaccountdetails.Service)),
