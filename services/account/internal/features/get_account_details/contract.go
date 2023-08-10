@@ -1,4 +1,4 @@
-package getaccountdetails
+package get_account_details
 
 import (
 	"context"

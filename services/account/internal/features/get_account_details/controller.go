@@ -1,5 +1,5 @@
 //nolint:godot //swagger docs
-package getaccountdetails
+package get_account_details
 
 import (
 	"fmt"
@@ -33,7 +33,7 @@ func NewController(slog interfaces.Logger, mediator interfaces.Mediator) *Contro
 // @Accept json
 // @Produce json
 // @Param id path string true "Account ID" example("0b6ecded-fa9d-4b39-a309-9ef501de15f4")
-// @Success 200 {object} GetAccountDetailsResponse "Returns the account details."
+// @Success 200 {object} AccountUserResponse "Returns the account details."
 // @Failure 404 {object} HTTPError "The specified record does not exist."
 // @Failure 500 {object} HTTPError "An error occurred while processing the request."
 // @Router /api/account/{id} [get]
