@@ -31,7 +31,7 @@
                     "200": {
                         "description": "Returns the account details.",
                         "schema": {
-                            "$ref": "#/definitions/GetAccountDetailsResponse"
+                            "$ref": "#/definitions/AccountUserResponse"
                         }
                     },
                     "404": {
@@ -51,6 +51,32 @@
         }
     },
     "definitions": {
+        "AccountUserProfileResponse": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "bio": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
         "AccountUserResponse": {
             "type": "object",
             "properties": {
@@ -65,6 +91,9 @@
                 },
                 "lastLoginAt": {
                     "type": "string"
+                },
+                "profile": {
+                    "$ref": "#/definitions/AccountUserProfileResponse"
                 },
                 "role": {
                     "type": "string"
@@ -82,14 +111,6 @@
                 },
                 "message": {
                     "type": "string"
-                }
-            }
-        },
-        "GetAccountDetailsResponse": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/AccountUserResponse"
                 }
             }
         },

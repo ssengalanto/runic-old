@@ -42,7 +42,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Returns the account details.",
                         "schema": {
-                            "$ref": "#/definitions/GetAccountDetailsResponse"
+                            "$ref": "#/definitions/AccountUserResponse"
                         }
                     },
                     "404": {
@@ -62,6 +62,32 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "AccountUserProfileResponse": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "bio": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
         "AccountUserResponse": {
             "type": "object",
             "properties": {
@@ -76,6 +102,9 @@ const docTemplate = `{
                 },
                 "lastLoginAt": {
                     "type": "string"
+                },
+                "profile": {
+                    "$ref": "#/definitions/AccountUserProfileResponse"
                 },
                 "role": {
                     "type": "string"
@@ -93,14 +122,6 @@ const docTemplate = `{
                 },
                 "message": {
                     "type": "string"
-                }
-            }
-        },
-        "GetAccountDetailsResponse": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/AccountUserResponse"
                 }
             }
         },
