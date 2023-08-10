@@ -8,7 +8,7 @@ import (
 	"github.com/ssengalanto/runic/pkg/log"
 	"github.com/ssengalanto/runic/pkg/mediator"
 
-	getaccountdetails "github.com/ssengalanto/runic/services/account/internal/features/get_account_details"
+	"github.com/ssengalanto/runic/services/account/internal/features/get_account_details"
 )
 
 var (
@@ -20,16 +20,16 @@ var (
 
 	// mediator handler sets.
 	getAccountDetailsSet = wire.NewSet(
-		getaccountdetails.NewService,
-		wire.Bind(new(getaccountdetails.ServiceContract), new(*getaccountdetails.Service)),
-		getaccountdetails.NewHandler,
+		get_account_details.NewService,
+		wire.Bind(new(get_account_details.ServiceContract), new(*get_account_details.Service)),
+		get_account_details.NewHandler,
 	)
 )
 
 // registerRequestHandlers registers all request handlers in the registry.
 func registerMediatorHandlers(
 	slog interfaces.Logger,
-	getAccountDetailsHandler *getaccountdetails.Handler,
+	getAccountDetailsHandler *get_account_details.Handler,
 ) interfaces.Mediator {
 	m := mediator.New()
 

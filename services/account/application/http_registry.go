@@ -8,7 +8,7 @@ import (
 	"github.com/ssengalanto/runic/pkg/interfaces"
 	"github.com/ssengalanto/runic/services/account/internal/config"
 
-	getaccountdetails "github.com/ssengalanto/runic/services/account/internal/features/get_account_details"
+	"github.com/ssengalanto/runic/services/account/internal/features/get_account_details"
 	httpSwagger "github.com/swaggo/http-swagger/v2"
 )
 
@@ -32,7 +32,7 @@ func registerHTTPControllers(slog interfaces.Logger, mediator interfaces.Mediato
 func registerHTTPHandlers(slog interfaces.Logger, mux *chi.Mux, mediator interfaces.Mediator) {
 	mux.Route("/api", func(r chi.Router) {
 		// GET /api/account/{id}
-		getAccountDetails := getaccountdetails.NewController(slog, mediator)
+		getAccountDetails := get_account_details.NewController(slog, mediator)
 		r.Get("/account/{id}", getAccountDetails.Handle)
 	})
 }
