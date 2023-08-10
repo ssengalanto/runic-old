@@ -13,22 +13,22 @@ type Response struct {
 
 // AccountUserResponse is a struct representing the user details in the response for GetAccountDetails API.
 type AccountUserResponse struct {
-	ID          uuid.UUID                  `json:"id"`
-	Email       string                     `json:"email"`
-	Role        string                     `json:"role"`
-	Active      bool                       `json:"active"`
-	LastLoginAt time.Time                  `json:"lastLoginAt,omitempty"`
+	ID          uuid.UUID                  `json:"id" example:"0b6ecded-fa9d-4b39-a309-9ef501de15f4"`
+	Email       string                     `json:"email" example:"johndoe@example.com"`
+	Role        string                     `json:"role" example:"admin"`
+	Active      bool                       `json:"active" example:"true"`
+	LastLoginAt time.Time                  `json:"lastLoginAt,omitempty" example:"2000-11-12T13:14:15Z"`
 	Profile     AccountUserProfileResponse `json:"profile"`
 } // @name AccountUserResponse
 
 // AccountUserProfileResponse is a struct representing the user profile details
 // in the response for GetAccountDetails API.
 type AccountUserProfileResponse struct {
-	ID          uuid.UUID `json:"id"`
-	UserID      uuid.UUID `json:"userId"`
-	FirstName   string    `json:"firstName"`
-	LastName    string    `json:"lastName"`
-	DateOfBirth time.Time `json:"dateOfBirth"`
-	Avatar      string    `json:"avatar,omitempty"`
-	Bio         string    `json:"bio,omitempty"`
+	ID          uuid.UUID `json:"id" example:"0b6ecded-fa9d-4b39-a309-9ef501de15f4"`
+	UserID      uuid.UUID `json:"userId" example:"0b6ecded-fa9d-4b39-a309-9ef501de15f4"`
+	FirstName   string    `json:"firstName" example:"John"`
+	LastName    string    `json:"lastName" example:"Doe"`
+	DateOfBirth time.Time `json:"dateOfBirth" example:"2000-11-12T13:14:15Z"`
+	Avatar      string    `json:"avatar,omitempty" example:"https://avatar.com"`
+	Bio         string    `json:"bio,omitempty" example:"Hi, I'm John Doe."`
 } // @name AccountUserProfileResponse

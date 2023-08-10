@@ -66,25 +66,32 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "avatar": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "https://avatar.com"
                 },
                 "bio": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Hi, I'm John Doe."
                 },
                 "dateOfBirth": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2000-11-12T13:14:15Z"
                 },
                 "firstName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "John"
                 },
                 "id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0b6ecded-fa9d-4b39-a309-9ef501de15f4"
                 },
                 "lastName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Doe"
                 },
                 "userId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0b6ecded-fa9d-4b39-a309-9ef501de15f4"
                 }
             }
         },
@@ -92,22 +99,27 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "active": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": true
                 },
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "johndoe@example.com"
                 },
                 "id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0b6ecded-fa9d-4b39-a309-9ef501de15f4"
                 },
                 "lastLoginAt": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2000-11-12T13:14:15Z"
                 },
                 "profile": {
                     "$ref": "#/definitions/AccountUserProfileResponse"
                 },
                 "role": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "admin"
                 }
             }
         },

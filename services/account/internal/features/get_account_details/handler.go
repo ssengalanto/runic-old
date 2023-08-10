@@ -48,6 +48,15 @@ func (h *Handler) Handle(
 			Role:        user.Role.String(),
 			Active:      user.Active,
 			LastLoginAt: user.LastLoginAt,
+			Profile: AccountUserProfileResponse{
+				ID:          user.Profile.ID,
+				UserID:      user.Profile.UserID,
+				FirstName:   user.Profile.FirstName,
+				LastName:    user.Profile.LastName,
+				DateOfBirth: user.Profile.DateOfBirth,
+				Avatar:      user.Profile.Avatar,
+				Bio:         user.Profile.Bio,
+			},
 		},
 	}, nil
 }

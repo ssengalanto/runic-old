@@ -2,33 +2,45 @@ definitions:
   AccountUserProfileResponse:
     properties:
       avatar:
+        example: https://avatar.com
         type: string
       bio:
+        example: Hi, I'm John Doe.
         type: string
       dateOfBirth:
+        example: "2000-11-12T13:14:15Z"
         type: string
       firstName:
+        example: John
         type: string
       id:
+        example: 0b6ecded-fa9d-4b39-a309-9ef501de15f4
         type: string
       lastName:
+        example: Doe
         type: string
       userId:
+        example: 0b6ecded-fa9d-4b39-a309-9ef501de15f4
         type: string
     type: object
   AccountUserResponse:
     properties:
       active:
+        example: true
         type: boolean
       email:
+        example: johndoe@example.com
         type: string
       id:
+        example: 0b6ecded-fa9d-4b39-a309-9ef501de15f4
         type: string
       lastLoginAt:
+        example: "2000-11-12T13:14:15Z"
         type: string
       profile:
         $ref: '#/definitions/AccountUserProfileResponse'
       role:
+        example: admin
         type: string
     type: object
   Error:
