@@ -57,7 +57,7 @@ func (s *Service) GetAccountUser(ctx context.Context, id uuid.UUID) (domain.User
 			au.role,
 			au.last_login_at,
 			aup.id as p_id,
-			aup.use_id as p_user_id,
+			aup.user_id as p_user_id,
 			aup.first_name as p_first_name,
 			aup.last_name as p_last_name,
 			aup.avatar as p_avatar,
@@ -66,7 +66,7 @@ func (s *Service) GetAccountUser(ctx context.Context, id uuid.UUID) (domain.User
 		FROM account.user au
 		JOIN account.user_profile aup
 		ON aup.user_id = au.id
-		WHERE account.user.id = $1;
+		WHERE au.id = $1;
 	`
 
 	stmt, err := s.db.PreparexContext(ctx, query)
