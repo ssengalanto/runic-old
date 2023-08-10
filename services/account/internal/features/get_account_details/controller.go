@@ -2,12 +2,9 @@
 package get_account_details
 
 import (
-	"fmt"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/google/uuid"
-	"github.com/ssengalanto/runic/pkg/exceptions"
+	"github.com/ssengalanto/runic/pkg/fn"
 	"github.com/ssengalanto/runic/pkg/http/json"
 	"github.com/ssengalanto/runic/pkg/interfaces"
 	"github.com/ssengalanto/runic/pkg/log"
@@ -40,12 +37,9 @@ func NewController(slog interfaces.Logger, mediator interfaces.Mediator) *Contro
 func (d *Controller) Handle(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	idParam := chi.URLParam(r, "id")
-
-	id, err := uuid.Parse(idParam)
+	id, err := fn.ParseUUIDFromURLParam("id", w, r)
 	if err != nil {
 		d.slog.Error("invalid uuid", log.Field("error", err))
-		json.Error(w, fmt.Errorf("%w: id is not a valid uuid", exceptions.ErrInvalid))
 		return
 	}
 
