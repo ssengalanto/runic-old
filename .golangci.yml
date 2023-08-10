@@ -74,6 +74,14 @@ linters-settings:
     # Default: false
     all: true
 
+  stylecheck:
+    checks: ["all", "-ST1003"]
+
+  revive:
+    rules:
+      - name: var-naming
+        disabled: true
+
 linters:
   disable-all: true
   enable:
